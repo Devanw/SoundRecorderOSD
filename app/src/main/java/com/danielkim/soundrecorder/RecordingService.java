@@ -71,9 +71,13 @@ public class RecordingService extends Service {
     @Override
     public void onDestroy() {
         if (mRecorder != null) {
-            stopRecording();
+            try {
+                stopRecording();
+            }
+            catch (Exception e){
+                Log.d(LOG_TAG, "onDestroy: error double tap");
+            }
         }
-
         super.onDestroy();
     }
 
