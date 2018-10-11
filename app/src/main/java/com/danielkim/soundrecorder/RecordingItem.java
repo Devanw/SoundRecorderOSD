@@ -12,6 +12,7 @@ public class RecordingItem implements Parcelable {
     private int mId; //id in database
     private int mLength; // length of recording in seconds
     private long mTime; // date/time of the recording
+    private boolean important;
 
     public RecordingItem()
     {
@@ -23,6 +24,7 @@ public class RecordingItem implements Parcelable {
         mId = in.readInt();
         mLength = in.readInt();
         mTime = in.readLong();
+        important = false;
     }
 
     public String getFilePath() {
@@ -65,6 +67,17 @@ public class RecordingItem implements Parcelable {
         mTime = time;
     }
 
+    public boolean isImportant() {
+        return important;
+    }
+
+    public void setImportant() {
+        this.important = true;
+    }
+    public void setUnimportant() {
+        this.important = false;
+    }
+
     public static final Parcelable.Creator<RecordingItem> CREATOR = new Parcelable.Creator<RecordingItem>() {
         public RecordingItem createFromParcel(Parcel in) {
             return new RecordingItem(in);
@@ -82,6 +95,7 @@ public class RecordingItem implements Parcelable {
         dest.writeLong(mTime);
         dest.writeString(mFilePath);
         dest.writeString(mName);
+        dest.writeByte((byte) (important ? 1:0));
     }
 
     @Override
