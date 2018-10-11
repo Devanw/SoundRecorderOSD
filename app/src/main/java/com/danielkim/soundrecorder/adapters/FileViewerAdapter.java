@@ -178,24 +178,24 @@ public class FileViewerAdapter extends RecyclerView.Adapter<FileViewerAdapter.Re
         holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-//                if (!isMultiSelect){
-//                    Toast.makeText(mContext, "Hold again to delete selected files", Toast.LENGTH_SHORT).show();
-//                    v.setBackgroundColor(Color.parseColor("#35c7e8"));
-//                    isMultiSelect = true;
-//                    if (!holder.getSelected()){
-//                        a.add(holder.getPosition());
-//                        v.setBackgroundColor(Color.parseColor("#35c7e8"));
-//                        holder.setSelected(true);}
-//                }
-//                else {
-//                    Toast.makeText(mContext, "size = "+a.size(), Toast.LENGTH_SHORT).show();
-//                    for (int i = 0; i<a.size(); i++) {
-//                        Collections.sort(a);
-//                        deleteFileDialog2(a.get(i));
-//                    }
-//                    cleararray();
-//                    isMultiSelect = false;
-//                }
+                if (!isMultiSelect){
+                    Toast.makeText(mContext, "Hold again to delete selected files", Toast.LENGTH_SHORT).show();
+                    v.setBackgroundColor(Color.parseColor("#35c7e8"));
+                    isMultiSelect = true;
+                    if (!holder.getSelected()){
+                        a.add(holder.getPosition());
+                        v.setBackgroundColor(Color.parseColor("#35c7e8"));
+                        holder.setSelected(true);}
+                }
+                else {
+                    Toast.makeText(mContext, "size = "+a.size(), Toast.LENGTH_SHORT).show();
+                    for (int i = 0; i<a.size(); i++) {
+                        Collections.sort(a);
+                        deleteFileDialog2(a.get(i));
+                    }
+                    cleararray();
+                    isMultiSelect = false;
+                }
                 return false;
             }
         });
