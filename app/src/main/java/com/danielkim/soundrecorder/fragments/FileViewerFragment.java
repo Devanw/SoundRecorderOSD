@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.danielkim.soundrecorder.R;
 import com.danielkim.soundrecorder.adapters.FileViewerAdapter;
@@ -24,7 +23,6 @@ public class FileViewerFragment extends Fragment{
 
     private int position;
     private FileViewerAdapter mFileViewerAdapter;
-    protected TextView totalItem;
 
     public static FileViewerFragment newInstance(int position) {
         FileViewerFragment f = new FileViewerFragment();
@@ -39,22 +37,14 @@ public class FileViewerFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         position = getArguments().getInt(ARG_POSITION);
-        setHasOptionsMenu(true);
         observer.startWatching();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        setTotalItem(Integer.toString(mFileViewerAdapter.getItemCount()));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_file_viewer, container, false);
 
-        totalItem = (TextView)v.findViewById(R.id.totalItem2);
-        final RecyclerView mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
+        RecyclerView mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -67,16 +57,10 @@ public class FileViewerFragment extends Fragment{
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         mFileViewerAdapter = new FileViewerAdapter(getActivity(), llm);
-        setTotalItem(Integer.toString(mFileViewerAdapter.getItemCount()));
         mRecyclerView.setAdapter(mFileViewerAdapter);
 
         return v;
     }
-
-    public void setTotalItem(String item){
-        totalItem.setText(item);
-    }
-
 
     FileObserver observer =
             new FileObserver(android.os.Environment.getExternalStorageDirectory().toString()
